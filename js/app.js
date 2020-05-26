@@ -4,7 +4,7 @@ let asunto = document.querySelector("#asunto");
 let mensaje = document.querySelector("#mensaje");
 let botonEnviar = document.querySelector("#enviar");
 let formulario = document.querySelector("#enviar-mail");
-
+let btnReset  = document.querySelector("#resetBtn"); 
 
 
 //evenlistener
@@ -15,6 +15,8 @@ function eventos(){
     email.addEventListener('blur', validarCampo);
     asunto.addEventListener('blur', validarCampo);
     mensaje.addEventListener('blur', validarCampo);
+    botonEnviar.addEventListener('click', enviarEmail);
+    btnReset.addEventListener("click", inicio);
 
 
 }
@@ -24,6 +26,7 @@ function eventos(){
 //functiones
 function inicio(){
     botonEnviar.disabled = true;
+    formulario.reset();
 }
 function validarCampo(){
 
@@ -66,9 +69,38 @@ function validarEmail(campo){
 }
 
 
+function enviarEmail(e){
+    e.preventDefault();
+    //espinner de carga
+    let spinnerGif = document.querySelector("#spinner");
+    spinnerGif.style.display = 'block';
+
+    //spinner de enviado
+    let spinnerEviar = document.createElement('img');
+    spinnerEviar.src = 'img/mail.gif';
+
+    //luego de 3 segundos ocultamos el spinner de carga
+    setTimeout(function(){
+        spinnerGif.style.display = 'none';
+        //agregamos spinner enbiado
+        document.querySelector("#loaders").appendChild(spinnerEviar);
+        //ocultamos spinner enviado
+        setTimeout(function(){
+                spinnerEviar.style.display = 'none';
+
+                inicio();
+        },4000);
+    },3000);
+    
+    
+    
+    console.log("enviando...");
+}
 
 
-
+function resetearFormulario(){
+    
+}
 
 
 
